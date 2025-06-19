@@ -1,33 +1,41 @@
 
-import { useState } from 'react';
-import { Table, Grid3X3 } from 'lucide-react';
+import { Grid, Table, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ViewToggleProps {
-  currentView: 'card' | 'table';
-  onViewChange: (view: 'card' | 'table') => void;
+  currentView: 'card' | 'table' | 'filter';
+  onViewChange: (view: 'card' | 'table' | 'filter') => void;
 }
 
 export const ViewToggle = ({ currentView, onViewChange }: ViewToggleProps) => {
   return (
-    <div className="flex bg-gray-100 rounded-lg p-1">
+    <div className="flex rounded-lg border border-gray-200 bg-white p-1">
       <Button
         variant={currentView === 'card' ? 'default' : 'ghost'}
         size="sm"
         onClick={() => onViewChange('card')}
-        className="flex items-center gap-2"
+        className="h-8 px-3"
       >
-        <Grid3X3 className="h-4 w-4" />
-        Card View
+        <Grid className="h-4 w-4 mr-2" />
+        Cards
       </Button>
       <Button
         variant={currentView === 'table' ? 'default' : 'ghost'}
         size="sm"
         onClick={() => onViewChange('table')}
-        className="flex items-center gap-2"
+        className="h-8 px-3"
       >
-        <Table className="h-4 w-4" />
-        Table View
+        <Table className="h-4 w-4 mr-2" />
+        Table
+      </Button>
+      <Button
+        variant={currentView === 'filter' ? 'default' : 'ghost'}
+        size="sm"
+        onClick={() => onViewChange('filter')}
+        className="h-8 px-3"
+      >
+        <Filter className="h-4 w-4 mr-2" />
+        Filter
       </Button>
     </div>
   );
