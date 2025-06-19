@@ -1,10 +1,13 @@
 
 import { useState } from 'react';
 import { ProductHierarchy } from '@/components/ProductHierarchy';
+import { ProductTableView } from '@/components/ProductTableView';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { SearchAndFilters } from '@/components/SearchAndFilters';
+import { ViewToggle } from '@/components/ViewToggle';
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<'card' | 'table'>('card');
   const [currentLevel, setCurrentLevel] = useState<'category' | 'class' | 'product'>('category');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
@@ -32,14 +35,40 @@ const Index = () => {
     }
   };
 
+  // If table view is selected, show the table component directly
+  if (currentView === 'table') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-white border-b border-gray-200 shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-6 flex justify-between items-center">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Product Master</h1>
+                <p className="mt-2 text-gray-600">Manage your product hierarchy efficiently</p>
+              </div>
+              <ViewToggle currentView={currentView} onViewChange={setCurrentView} />
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <ProductTableView />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-6">
-            <h1 className="text-3xl font-bold text-gray-900">Product Master</h1>
-            <p className="mt-2 text-gray-600">Manage your product hierarchy efficiently</p>
+          <div className="py-6 flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Product Master</h1>
+              <p className="mt-2 text-gray-600">Manage your product hierarchy efficiently</p>
+            </div>
+            <ViewToggle currentView={currentView} onViewChange={setCurrentView} />
           </div>
         </div>
       </div>
